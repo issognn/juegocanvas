@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escenario de Voleibol</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #87CEEB; /* Color de fondo azul cielo */
+        }
+        canvas {
+            border: 2px solid #000;
+            background-color: #FFB6C1; /* Nuevo color de fondo de la cancha (rosa claro) */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="voleibolCanvas" width="800" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('voleibolCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Dibujar la cancha de voleibol
+        function drawCourt() {
+            // Dibujar la red
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(canvas.width / 2 - 2.5, 0, 5, canvas.height);
+
+            // Dibujar la línea central
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+
+            // Dibujar las líneas de fondo
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, 0);
+            ctx.moveTo(0, canvas.height);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.stroke();
+
+            // Dibujar las líneas laterales
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, canvas.height);
+            ctx.moveTo(canvas.width, 0);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.stroke();
+
+            // Dibujar la línea de ataque
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2 - 150, 0);
+            ctx.lineTo(canvas.width / 2 - 150, canvas.height);
+            ctx.moveTo(canvas.width / 2 + 150, 0);
+            ctx.lineTo(canvas.width / 2 + 150, canvas.height);
+            ctx.stroke();
+        }
+
+        // Dibujar la pelota de voleibol
+        function drawBall(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2, false);
+            ctx.fillStyle = '#FFD700'; // Color de la pelota
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#000000';
+            ctx.stroke();
+        }
+
+        // Inicializar la cancha y la pelota
+        function init() {
+            drawCourt();
+            drawBall(canvas.width / 2, canvas.height / 2);
+        }
+
+        // Llamar a la función init cuando la página se haya cargado
+        window.onload = init;
+    </script>
+</body>
+</html>
+
