@@ -11,13 +11,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #87CEEB; /* Color de fondo azul cielo */
+            background-color: #ffffff; /* Color de fondo azul cielo */
         }
-        canvas {
-            border: 2px solid #000;
-            background-color: #e7a456; /* Nuevo color de fondo de la cancha (rosa claro) */
-        }
-
+        
     </style>
 </head>
 <body>
@@ -26,26 +22,27 @@
         const canvas = document.getElementById('voleibolCanvas');
         const ctx = canvas.getContext('2d');
 
-         // Establecer el color de fondo
-         ctx.fillStyle = "#B5CDFF";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-       
+        // Cargar la imagen
         const dibujo = new Image();
-       
-        dibujo.src = 'kageyamauwuw.png';
- 
-        dibujo.onload = function() {
-        ctx.drawImage(dibujo, 100, 50);
-        };
-        
+        dibujo.src = 'shoyoooo.png';
+
+        // Variables para la posición de la imagen
+        let imageX = 450;
+        let imageY = 100;
+
         // Dibujar la cancha de voleibol
         function drawCourt() {
+            // Dibujar la cancha
+            ctx.fillStyle = '#E87F3B'; // Color de fondo azul cielo
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
             // Dibujar la red
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(canvas.width / 2 - 2.5, 0, 5, canvas.height);
 
             // Dibujar la línea central
-            ctx.strokeStyle = '#FFFFFF';
+            ctx.strokeStyle = '#FFFFFF ';
             ctx.lineWidth = 5;
             ctx.beginPath();
             ctx.moveTo(canvas.width / 2, 0);
@@ -78,53 +75,39 @@
             ctx.moveTo(canvas.width / 2 + 150, 0);
             ctx.lineTo(canvas.width / 2 + 150, canvas.height);
             ctx.stroke();
+
+            // Dibujar la imagen
+            ctx.drawImage(dibujo, imageX, imageY);
         }
 
-        // Dibujar la pelota
-        function drawBall(x, y) {
-            ctx.beginPath();
-            ctx.arc(x, y, 10, 0, Math.PI * 2);
-            ctx.fillStyle = "#FF0000";
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        // Inicializar la cancha y la pelota
+        // Inicializar la cancha
         function init() {
             drawCourt();
-            drawBall(canvas.width / 2, canvas.height / 2);
         }
 
         // Llamar a la función init cuando la página se haya cargado
         window.onload = init;
 
-        // Variables globales para la posición de la pelota
-        let x = canvas.width / 2;
-        let y = canvas.height / 2;
-
+        // Manejar el evento de teclado para mover la imagen
         document.addEventListener("keydown", (event) => {
             switch (event.key) {
                 case "ArrowUp":
-                    y -= 10;
+                    imageY -= 10;
                     break;
                 case "ArrowDown":
-                    y += 10;
+                    imageY += 10;
                     break;
                 case "ArrowLeft":
-                    x -= 10;
+                    imageX -= 10;
                     break;
                 case "ArrowRight":
-                    x += 10;
+                    imageX += 10;
                     break;
             }
+            // Limpiar y volver a dibujar la cancha con la nueva posición de la imagen
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawCourt();
-            drawBall(x, y);
         });
-        
     </script>
 </body>
 </html>
-
-</html>
-
